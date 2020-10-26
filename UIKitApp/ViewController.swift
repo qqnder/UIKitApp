@@ -18,6 +18,10 @@ class ViewController: UIViewController {
     @IBOutlet var redLabelValue: UILabel!
     @IBOutlet var greenLabelValue: UILabel!
     @IBOutlet var blueLabelValue: UILabel!
+    
+    @IBOutlet var redValueFromText: UITextField!
+    @IBOutlet var greenValueFromText: UITextField!
+    @IBOutlet var blueValueFromText: UITextField!
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +50,10 @@ class ViewController: UIViewController {
         greenLabelValue.text = sliderValueToText(slider: greenSlider)
         blueLabelValue.text = sliderValueToText(slider: blueSlider)
 
+        redValueFromText.text = redLabelValue.text
+        greenValueFromText.text = greenLabelValue.text
+        blueValueFromText.text = blueLabelValue.text
+        
         setColorOnTheView()
     }
 
@@ -72,6 +80,15 @@ class ViewController: UIViewController {
     
     func sliderValueToText(slider: UISlider) -> String {
         return String(format: "%.2f", slider.value)
+    }
+    
+    @IBAction func redTextEditAction() {
+    }
+    
+    @IBAction func greenTextEditAction() {
+    }
+    
+    @IBAction func blueTextEditAction() {
     }
 }
 
