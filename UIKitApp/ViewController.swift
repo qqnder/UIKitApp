@@ -42,32 +42,37 @@ class ViewController: UIViewController {
         blueSlider.maximumValue = 1
         
         // Setup labels
-        redLabelValue.text = String(format: "%.2f", redSlider.value)
-        greenLabelValue.text = String(format: "%.2f", greenSlider.value)
-        blueLabelValue.text = String(format: "%.2f", blueSlider.value)
+        redLabelValue.text = sliderValueToText(slider: redSlider)
+        greenLabelValue.text = sliderValueToText(slider: greenSlider)
+        blueLabelValue.text = sliderValueToText(slider: blueSlider)
 
-        getColorOnTheView()
+        setColorOnTheView()
     }
 
     @IBAction func redSliderAction() {
-        redLabelValue.text = String(format: "%.2f", redSlider.value)
-        getColorOnTheView()
+        redLabelValue.text = sliderValueToText(slider: redSlider)
+        setColorOnTheView()
     }
     @IBAction func greenSliderAction() {
-        greenLabelValue.text = String(format: "%.2f", greenSlider.value)
-        getColorOnTheView()
+        greenLabelValue.text = sliderValueToText(slider: greenSlider)
+        setColorOnTheView()
     }
     @IBAction func blueSliderAction() {
-        blueLabelValue.text = String(format: "%.2f", blueSlider.value)
-        getColorOnTheView()
+        blueLabelValue.text = sliderValueToText(slider: blueSlider)
+        setColorOnTheView()
     }
     
-    func getColorOnTheView() {
+    func setColorOnTheView() {
         viewRGB.backgroundColor =
             UIColor(red: CGFloat(redSlider.value),
                     green: CGFloat(greenSlider.value),
                     blue: CGFloat(blueSlider.value),
                     alpha: 1)
     }
+    
+    func sliderValueToText(slider: UISlider) -> String {
+        return String(format: "%.2f", slider.value)
+    }
 }
+
 
