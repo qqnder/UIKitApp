@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet var viewRGB: UIView!
     
@@ -15,13 +15,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
-    @IBOutlet var redLabelValue: UILabel!
-    @IBOutlet var greenLabelValue: UILabel!
-    @IBOutlet var blueLabelValue: UILabel!
+    @IBOutlet var redLabel: UILabel!
+    @IBOutlet var greenLabel: UILabel!
+    @IBOutlet var blueLabel: UILabel!
     
-    @IBOutlet var redValueFromText: UITextField!
-    @IBOutlet var greenValueFromText: UITextField!
-    @IBOutlet var blueValueFromText: UITextField!
+    @IBOutlet var redTextField: UITextField!
+    @IBOutlet var greenTextField: UITextField!
+    @IBOutlet var blueTextField: UITextField!
         
     @IBOutlet var redColorVIew: UIView!
     @IBOutlet var greenColorView: UIView!
@@ -30,60 +30,70 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewRGB.layer.cornerRadius = 10
-        redColorVIew.layer.cornerRadius = 10
-        greenColorView.layer.cornerRadius = 10
-        blueColorView.layer.cornerRadius = 10
+        toRoundCorners(elements: viewRGB, redColorVIew,
+                       greenColorView, blueColorView,
+                       radius: 10)
         
-        // Setup sliders
+        setColorSlider()
+        setSliderValue(sliders: redSlider, greenSlider, blueSlider)
+        setLabelValue()
+        setTextFieldValue()
+        
+        setViewColorRGB()
+        
+        addDoneButton(for: redTextField, greenTextField, blueTextField)
+        
+        redTextField.delegate = self
+        greenTextField.delegate = self
+        blueTextField.delegate = self
+    }
+
+
+    @IBAction func rgbSlider(_ sender: UISlider) {
+        
+        switch sender.tag {
+        case 0:
+            redLabel.text = convertValueToText(sender)
+            redTextField.text = convertValueToText(sender)
+        case 1:
+            greenLabel.text = convertValueToText(sender)
+            greenTextField.text = convertValueToText(sender)
+        case 2:
+            blueLabel.text = convertValueToText(sender)
+            blueTextField.text = convertValueToText(sender)
+        default: break
+        }
+        
+        setViewColorRGB()
+    }
+
+    private func setColorSlider() {
         redSlider.minimumTrackTintColor = .red
         greenSlider.minimumTrackTintColor = .green
         blueSlider.minimumTrackTintColor = .blue
-        
-        redSlider.value = 0.76
-        redSlider.minimumValue = 0
-        redSlider.maximumValue = 1
-        
-        greenSlider.value = 0.26
-        greenSlider.minimumValue = 0
-        greenSlider.maximumValue = 1
-        
-        blueSlider.value = 0.49
-        blueSlider.minimumValue = 0
-        blueSlider.maximumValue = 1
-        
-        // Setup labels
-        redLabelValue.text = sliderValueToText(slider: redSlider)
-        greenLabelValue.text = sliderValueToText(slider: greenSlider)
-        blueLabelValue.text = sliderValueToText(slider: blueSlider)
-
-        // Setup edit fields
-        redValueFromText.text = redLabelValue.text
-        greenValueFromText.text = greenLabelValue.text
-        blueValueFromText.text = blueLabelValue.text
-        
-        redValueFromText.delegate = self
-        
-        setColorOnTheView()
-    }
-
-    @IBAction func redSliderAction() {
-        redLabelValue.text = sliderValueToText(slider: redSlider)
-        redValueFromText.text = redLabelValue.text
-        setColorOnTheView()
-    }
-    @IBAction func greenSliderAction() {
-        greenLabelValue.text = sliderValueToText(slider: greenSlider)
-        greenValueFromText.text = greenLabelValue.text
-        setColorOnTheView()
-    }
-    @IBAction func blueSliderAction() {
-        blueLabelValue.text = sliderValueToText(slider: blueSlider)
-        blueValueFromText.text = blueLabelValue.text
-        setColorOnTheView()
     }
     
-    func setColorOnTheView() {
+    private func setSliderValue(sliders: UISlider...) {
+        for slider in sliders {
+            slider.value = 0.5
+            slider.minimumValue = 0
+            slider.maximumValue = 1
+        }
+    }
+    
+    private func setLabelValue() {
+        redLabel.text = convertValueToText(redSlider)
+        greenLabel.text = convertValueToText(greenSlider)
+        blueLabel.text = convertValueToText(blueSlider)
+    }
+    
+    private func setTextFieldValue() {
+        redTextField.text = convertValueToText(redSlider)
+        greenTextField.text = convertValueToText(greenSlider)
+        blueTextField.text = convertValueToText(blueSlider)
+    }
+    
+    private func setViewColorRGB() {
         viewRGB.backgroundColor =
             UIColor(red: CGFloat(redSlider.value),
                     green: CGFloat(greenSlider.value),
@@ -91,26 +101,71 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     alpha: 1)
     }
     
-    func sliderValueToText(slider: UISlider) -> String {
+    private func convertValueToText(_ slider: UISlider) -> String {
         return String(format: "%.2f", slider.value)
     }
     
-    @IBAction func redTextEditAction() {
-        redLabelValue.text = redValueFromText.text
-        setColorOnTheView()
+    private func toRoundCorners(elements: UIView..., radius: CGFloat) {
+        for element in elements {
+            element.layer.cornerRadius = radius
+        }
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+
+    // скрытие клавиатуры по тапу за пределами поля ввода
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+    
+        view.endEditing(true) //скрывает клавиатуру выбранную для любого объекта
     }
     
-    @IBAction func greenTextEditAction() {
-        greenLabelValue.text = greenValueFromText.text
-        setColorOnTheView()
+    // скрытие клавиатуры кнопкой Done
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
-    @IBAction func blueTextEditAction() {
-        blueLabelValue.text = blueValueFromText.text
-        setColorOnTheView()
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text else { return }
+        
+        if let currentValue = Float(text) {
+            
+            switch textField.tag {
+            case 0: redSlider.value = currentValue
+            case 1: greenSlider.value = currentValue
+            case 2: blueSlider.value = currentValue
+            default: break
+            }
+            
+            setViewColorRGB()
+            setLabelValue()
+        } else {
+            return
+        }
+    }
+}
+
+extension ViewController {
+    
+    private func addDoneButton(for textFields: UITextField...) {
+        for field in textFields {
+            
+            let keyboardToolbar = UIToolbar()
+            field.inputAccessoryView = keyboardToolbar
+            keyboardToolbar.sizeToFit()
+            
+            let doneButton = UIBarButtonItem(title: "Done", style: .done,
+                                             target: self, action: #selector(didTapDone))
+            let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            
+            keyboardToolbar.items = [flexBarButton, doneButton]
+        }
     }
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        return true
-//    }
+    @objc private func didTapDone() {
+        view.endEditing(true)
+    }
 }
