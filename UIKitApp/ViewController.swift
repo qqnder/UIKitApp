@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var viewRGB: UIView!
     
@@ -23,10 +23,17 @@ class ViewController: UIViewController {
     @IBOutlet var greenValueFromText: UITextField!
     @IBOutlet var blueValueFromText: UITextField!
         
+    @IBOutlet var redColorVIew: UIView!
+    @IBOutlet var greenColorView: UIView!
+    @IBOutlet var blueColorView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewRGB.layer.cornerRadius = 10
+        redColorVIew.layer.cornerRadius = 10
+        greenColorView.layer.cornerRadius = 10
+        blueColorView.layer.cornerRadius = 10
         
         // Setup sliders
         redSlider.minimumTrackTintColor = .red
@@ -50,23 +57,29 @@ class ViewController: UIViewController {
         greenLabelValue.text = sliderValueToText(slider: greenSlider)
         blueLabelValue.text = sliderValueToText(slider: blueSlider)
 
+        // Setup edit fields
         redValueFromText.text = redLabelValue.text
         greenValueFromText.text = greenLabelValue.text
         blueValueFromText.text = blueLabelValue.text
+        
+        redValueFromText.delegate = self
         
         setColorOnTheView()
     }
 
     @IBAction func redSliderAction() {
         redLabelValue.text = sliderValueToText(slider: redSlider)
+        redValueFromText.text = redLabelValue.text
         setColorOnTheView()
     }
     @IBAction func greenSliderAction() {
         greenLabelValue.text = sliderValueToText(slider: greenSlider)
+        greenValueFromText.text = greenLabelValue.text
         setColorOnTheView()
     }
     @IBAction func blueSliderAction() {
         blueLabelValue.text = sliderValueToText(slider: blueSlider)
+        blueValueFromText.text = blueLabelValue.text
         setColorOnTheView()
     }
     
@@ -83,13 +96,21 @@ class ViewController: UIViewController {
     }
     
     @IBAction func redTextEditAction() {
+        redLabelValue.text = redValueFromText.text
+        setColorOnTheView()
     }
     
     @IBAction func greenTextEditAction() {
+        greenLabelValue.text = greenValueFromText.text
+        setColorOnTheView()
     }
     
     @IBAction func blueTextEditAction() {
+        blueLabelValue.text = blueValueFromText.text
+        setColorOnTheView()
     }
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        return true
+//    }
 }
-
-

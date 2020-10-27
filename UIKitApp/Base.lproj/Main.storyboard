@@ -135,10 +135,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYd-CW-LtR" userLabel="redTextField">
                                         <rect key="frame" x="0.0" y="0.0" width="84" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iim-FT-7gd" userLabel="redValueFromText">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iim-FT-7gd" userLabel="redValueFromText">
                                                 <rect key="frame" x="8" y="8" width="68" height="34"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad" returnKeyType="done"/>
                                                 <connections>
                                                     <action selector="redTextEditAction" destination="BYZ-38-t0r" eventType="editingDidEnd" id="9We-Te-669"/>
                                                 </connections>
@@ -155,10 +156,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQB-3d-49P" userLabel="greenTextField">
                                         <rect key="frame" x="135" y="0.0" width="84" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xv6-cF-iaZ" userLabel="greenValueFromText">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xv6-cF-iaZ" userLabel="greenValueFromText">
                                                 <rect key="frame" x="8" y="8" width="68" height="34"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad" returnKeyType="done"/>
                                                 <connections>
                                                     <action selector="greenTextEditAction" destination="BYZ-38-t0r" eventType="editingDidEnd" id="4bO-hp-5TH"/>
                                                 </connections>
@@ -175,10 +177,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kV2-GX-xB3" userLabel="blueTextField">
                                         <rect key="frame" x="270" y="0.0" width="84" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JFK-J8-UYp" userLabel="blueValueFromText">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JFK-J8-UYp" userLabel="blueValueFromText">
                                                 <rect key="frame" x="8" y="8" width="68" height="34"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad" returnKeyType="done"/>
                                                 <connections>
                                                     <action selector="blueTextEditAction" destination="BYZ-38-t0r" eventType="editingDidEnd" id="gc4-yu-kGz"/>
                                                 </connections>
@@ -213,12 +216,15 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blueColorView" destination="kV2-GX-xB3" id="5Nk-Pk-QHW"/>
                         <outlet property="blueLabelValue" destination="mAJ-ao-yqw" id="AhS-Ft-2xd"/>
                         <outlet property="blueSlider" destination="Nz2-6w-895" id="WoV-jv-cwn"/>
                         <outlet property="blueValueFromText" destination="JFK-J8-UYp" id="UJe-7d-ceY"/>
+                        <outlet property="greenColorView" destination="MQB-3d-49P" id="biG-gx-FVX"/>
                         <outlet property="greenLabelValue" destination="0jV-Tc-81C" id="S4H-RJ-gNE"/>
                         <outlet property="greenSlider" destination="MNd-nY-Mv8" id="oDF-6H-vYg"/>
                         <outlet property="greenValueFromText" destination="xv6-cF-iaZ" id="geS-hZ-n6b"/>
+                        <outlet property="redColorVIew" destination="mYd-CW-LtR" id="R5b-vk-ia2"/>
                         <outlet property="redLabelValue" destination="4Il-rH-5Oe" id="s3R-YX-oYI"/>
                         <outlet property="redSlider" destination="PZi-zM-IrM" id="J7a-bX-g8H"/>
                         <outlet property="redValueFromText" destination="iim-FT-7gd" id="uQt-QO-Dhl"/>
